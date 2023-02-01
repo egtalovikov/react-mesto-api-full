@@ -1,0 +1,13 @@
+.header__burger-line_active:first-of-type {
+    transform: translateX(115%);
+}
+
+.header__burger-line_active:nth-of-type(2) {
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.header__burger-line_active:nth-of-type(3) {
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+}

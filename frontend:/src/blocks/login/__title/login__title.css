@@ -1,0 +1,14 @@
+.login__title {
+    font-weight: 900;
+    font-size: 20px;
+    line-height: 24px;
+    margin: 0 0 40px;
+}
+
+@media screen and (min-width: 768px) {
+    .login__title {
+        font-size: 24px;
+        line-height: 29px;
+        margin: 20px 0 50px;
+    }
+}

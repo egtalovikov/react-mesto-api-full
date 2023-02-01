@@ -1,0 +1,15 @@
+.header__menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 0;
+    transition: height 0.5s;
+    overflow: hidden;
+}
+
+@media screen and (min-width: 768px) {
+    .header__menu {
+        display: none;
+    }
+}

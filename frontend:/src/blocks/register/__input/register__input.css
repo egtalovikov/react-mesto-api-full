@@ -1,0 +1,38 @@
+.register__input {
+    font-size: 14px;
+    line-height: 17px;
+    box-sizing: border-box;
+    border: none;
+    width: 260px;
+    height: 27px;
+    border-bottom: 2px solid #CCCCCC;
+    padding: 0;
+    background-color: transparent;
+    color: #FFFFFF;
+}
+
+@media screen and (min-width: 768px) {
+    .register__input {
+        width: 358px;
+    }
+
+    .register__input:last-of-type {
+        margin-bottom: 216px;
+    }
+}
+
+.register__input::placeholder {
+    color: #CCCCCC;
+}
+
+.register__input:last-of-type {
+    margin-bottom: 173px;
+}
+
+.register__input:nth-child(odd) {
+    margin-bottom: 30px;
+}
+
+.register__input:-webkit-autofill {
+    transition: all 5000s ease-in-out 0s;
+}

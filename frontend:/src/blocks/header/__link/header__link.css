@@ -1,0 +1,22 @@
+.header__link {
+    color: #FFFFFF;
+    text-decoration: none;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    margin-top: 6px;
+    font-size: 14px;
+    line-height: 17px;
+    padding-right: 30px;
+}
+
+.header__link:hover {
+    opacity: 0.6;
+}
+
+@media screen and (min-width: 768px) {
+    .header__link {
+        font-size: 18px;
+        line-height: 22px;
+        padding-right: 0;
+    }
+}

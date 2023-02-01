@@ -1,0 +1,18 @@
+.header__burger-line {
+    width: 24px;
+    height: 3px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #FFFFFF;
+    transition: all 0.5s;
+}
+
+.header__burger-line:nth-of-type(2) {
+    top: calc(50% - 7px);
+}
+
+.header__burger-line:nth-of-type(3) {
+    top: calc(50% + 7px);
+}

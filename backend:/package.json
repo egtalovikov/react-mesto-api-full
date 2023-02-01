@@ -1,0 +1,42 @@
+{
+  "name": "express-mesto-gha",
+  "version": "1.0.0",
+  "description": "[![Tests](../../actions/workflows/tests-13-sprint.yml/badge.svg)](../../actions/workflows/tests-13-sprint.yml) [![Tests](../../actions/workflows/tests-14-sprint.yml/badge.svg)](../../actions/workflows/tests-14-sprint.yml) # Проект Mesto фронтенд + бэкенд",
+  "main": "index.js",
+  "scripts": {
+    "lint": "npx eslint .",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/egtalovikov/express-mesto-gha.git"
+  },
+  "keywords": [],
+  "author": "Egor Talovikov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/egtalovikov/express-mesto-gha/issues"
+  },
+  "homepage": "https://github.com/egtalovikov/express-mesto-gha#readme",
+  "devDependencies": {
+    "eslint": "^8.30.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.1",
+    "celebrate": "^15.0.1",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.2",
+    "express-rate-limit": "^6.7.0",
+    "express-winston": "^4.2.0",
+    "helmet": "^6.0.1",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^6.8.0",
+    "validator": "^13.7.0",
+    "winston": "^3.8.2"
+  }
+}

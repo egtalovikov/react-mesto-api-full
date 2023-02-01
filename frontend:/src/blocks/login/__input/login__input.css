@@ -1,0 +1,38 @@
+.login__input {
+    font-size: 14px;
+    line-height: 17px;
+    box-sizing: border-box;
+    border: none;
+    width: 260px;
+    height: 27px;
+    border-bottom: 2px solid #CCCCCC;
+    padding: 0;
+    background-color: transparent;
+    color: #FFFFFF;
+}
+
+@media screen and (min-width: 768px) {
+    .login__input {
+        width: 358px;
+    }
+
+    .login__input:last-of-type {
+        margin-bottom: 216px;
+    }
+}
+
+.login__input::placeholder {
+    color: #CCCCCC;
+}
+
+.login__input:last-of-type {
+    margin-bottom: 173px;
+}
+
+.login__input:nth-child(odd) {
+    margin-bottom: 30px;
+}
+
+.login__input:-webkit-autofill {
+    transition: all 5000s ease-in-out 0s;
+}

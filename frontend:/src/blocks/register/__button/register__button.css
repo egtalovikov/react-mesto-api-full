@@ -1,0 +1,12 @@
+.register__button {
+    color: #000000;
+    height: 50px;
+    margin: 0 0 20px;
+    border: none;
+}
+
+@media screen and (min-width: 768px) {
+    .register__button {
+        margin: 0 0 15px;
+    }
+}

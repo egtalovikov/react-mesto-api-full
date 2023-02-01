@@ -1,0 +1,14 @@
+.header__menu-button {
+    width: 24px;
+    height: 30px;
+    z-index: 2;
+    overflow: hidden;
+    position: relative;
+    padding-right: 30px;
+}
+
+@media screen and (min-width: 768px) {
+    .header__menu-button {
+        display: none;
+    }
+}

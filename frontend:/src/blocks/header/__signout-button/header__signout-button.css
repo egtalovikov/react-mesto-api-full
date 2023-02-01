@@ -1,0 +1,14 @@
+.header__signout-button {
+    font-size: 18px;
+    line-height: 22px;
+    color: #A9A9A9;
+    background-color: transparent;
+    border: none;
+    margin-left: 0px;
+}
+
+@media screen and (min-width: 768px) {
+    .header__signout-button {
+        margin-left: 24px;
+    }
+}
