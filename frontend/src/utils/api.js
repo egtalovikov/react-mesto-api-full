@@ -82,9 +82,9 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'http://api.mesto.egtalovikov.nomoredomainsclub.ru',
+  baseUrl: 'https://api.mesto.egtalovikov.nomoredomainsclub.ru',
   headers: {
-    authorization: '35259131-c8d7-40ff-a93d-21891efd60f1',
+    Authorization: `Bearer ${localStorage.getItem("jwt")}`,
     'Content-Type': 'application/json'
   }
 });

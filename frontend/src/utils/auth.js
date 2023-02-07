@@ -1,4 +1,4 @@
-export const BASE_URL = "http://api.mesto.egtalovikov.nomoredomainsclub.ru";
+export const BASE_URL = "https://api.mesto.egtalovikov.nomoredomainsclub.ru";
 
 function getResponseData(res) {
   if (!res.ok) {
