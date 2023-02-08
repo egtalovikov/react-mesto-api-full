@@ -50,10 +50,6 @@ function App() {
     isInfoPopupOpen;
 
   useEffect(() => {
-    handleTokenCheck();
-  }, []);
-
-  useEffect(() => {
     if (loggedIn) {
       api
         .loadUserInfo()
@@ -165,7 +161,7 @@ function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
 
     api
       .changeLikeCardStatus(card._id, !isLiked)
@@ -241,6 +237,10 @@ function App() {
       });
   }
 
+  useEffect(() => {
+    handleTokenCheck();
+  }, []);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header
@@ -248,6 +248,7 @@ function App() {
         loggedIn={loggedIn}
         setLoggedIn={setLoggedIn}
         email={email}
+        setCurrentUser={setCurrentUser}
       />
       <Switch>
         <Route path="/sign-up">

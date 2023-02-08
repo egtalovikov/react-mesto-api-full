@@ -2,12 +2,13 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import logo from '../logo.svg';
 
-function Header({ headerLink, email, loggedIn, setLoggedIn }) {
+function Header({ headerLink, email, loggedIn, setLoggedIn, setCurrentUser }) {
   const history = useHistory();
   function signOut() {
     localStorage.removeItem('jwt');
     history.push('/sign-in');
     setLoggedIn(false);
+    setCurrentUser({});
   }
 
   const [isMenuButtonClick, setIsMenuButtonClick] = React.useState(false);
