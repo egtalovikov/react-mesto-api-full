@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const { celebrate, Joi, errors } = require('celebrate');
+const cors = require('cors');
 
 const { login, createUser } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -29,6 +30,17 @@ const allowedCors = [
   'localhost:3000',
 ];
 
+const corsOptions = {
+  origin(origin, callback) {
+    if (allowedCors.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Запрещено политикой CORS'));
+    }
+  },
+  methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
+};
+
 app.use(cookieParser());
 
 app.use(bodyParser.json());
@@ -41,6 +53,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
 app.use(helmet());
 
 app.use(limiter);
+
+app.use(cors(corsOptions));
 
 /* app.use((req, res, next) => {
   const { origin } = req.headers;
