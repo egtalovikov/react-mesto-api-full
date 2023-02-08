@@ -30,17 +30,6 @@ const allowedCors = [
   'localhost:3000',
 ];
 
-const corsOptions = {
-  origin(origin, callback) {
-    if (allowedCors.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Запрещено политикой CORS'));
-    }
-  },
-  methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
-};
-
 app.use(cookieParser());
 
 app.use(bodyParser.json());
@@ -56,7 +45,7 @@ app.use(limiter);
 
 app.use(cors(corsOptions));
 
-/* app.use((req, res, next) => {
+app.use((req, res, next) => {
   const { origin } = req.headers;
   const { method } = req;
   const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
@@ -77,7 +66,7 @@ app.use(cors(corsOptions));
 
   next();
   return null;
-}); */
+});
 
 app.use(requestLogger);
 
