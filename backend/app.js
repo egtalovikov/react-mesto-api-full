@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const { celebrate, Joi, errors } = require('celebrate');
-const cors = require('cors');
 
 const { login, createUser } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -42,8 +41,6 @@ mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
 app.use(helmet());
 
 app.use(limiter);
-
-app.use(cors(corsOptions));
 
 app.use((req, res, next) => {
   const { origin } = req.headers;
