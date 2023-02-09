@@ -63,7 +63,7 @@ app.use((req, res, next) => {
   }
 
   next();
-  return;
+  return null;
 });
 
 app.use(requestLogger);
