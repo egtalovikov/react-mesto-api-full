@@ -40,20 +40,18 @@ const createUser = (req, res, next) => {
       email,
       password: hash,
     }))
-    .then((user) => res.send({
-      name: user.name,
-      about: user.about,
-      avatar: user.avatar,
-      email: user.email,
-      _id: user._id,
-      __v: user.__v,  //eslint-disable-line
-    }))
+    .then((user) => {
+      delete user.password;
+      res.send(user);
+    })
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new ValidationError('Переданы некорректные данные при создании пользователя'));
+        return;
       }
       if (err.code === 11000) {
         next(new ConflictError('Пользователь с такой почтой уже зарегистрирован'));
+        return;
       }
       next(err);
     });
@@ -74,9 +72,11 @@ const updateProfile = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new ValidationError('Переданы некорректные данные при обновлении профиля'));
+        return;
       }
       if (err.name === 'CastError') {
         next(new NotFoundError('Пользователь с указанным _id не найден'));
+        return;
       }
       next(err);
     });
@@ -97,9 +97,11 @@ const updateAvatar = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new ValidationError('Переданы некорректные данные при обновлении аватара'));
+        return;
       }
       if (err.name === 'CastError') {
         next(new NotFoundError('Пользователь с указанным _id не найден'));
+        return;
       }
 
       next(err);

@@ -63,7 +63,7 @@ app.use((req, res, next) => {
   }
 
   next();
-  return null;
+  return;
 });
 
 app.use(requestLogger);
@@ -105,6 +105,4 @@ app.use(errors());
 
 app.use(handleErrors);
 
-app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`); // eslint-disable-line
-});
+app.listen(PORT);
