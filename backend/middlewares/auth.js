@@ -10,7 +10,8 @@ module.exports = (req, res, next) => {
     const { authorization } = req.headers;
 
     if (!authorization || !authorization.startsWith('Bearer ')) {
-      throw new AuthError('Необходима авторизация');
+      next(new AuthError('Необходима авторизация'));
+      return;
     }
 
     const token = extractBearerToken(authorization);
@@ -18,7 +19,8 @@ module.exports = (req, res, next) => {
 
     req.user = payload;
   } catch (err) {
-    next(err);
+    next(new AuthError('Что-то пошло не так при авторизации'));
+    return;
   }
 
   next();
