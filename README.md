@@ -4,3 +4,5 @@
 IP  62.84.112.129
 Frontend  https://mesto.egtalovikov.nomoredomainsclub.ru/
 Backend  https://api.mesto.egtalovikov.nomoredomainsclub.ru/
+
+Ссылка на репозиторий: https://github.com/egtalovikov/react-mesto-api-full
