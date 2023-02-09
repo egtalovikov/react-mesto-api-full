@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { default: isEmail } = require('validator/lib/isEmail');
+const urlRegex = require('../app');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -17,7 +18,7 @@ const userSchema = new mongoose.Schema({
   avatar: {
     type: String,
     validate: {
-      validator: (v) => /(:?(?:https?:\/\/)?(?:www\.)?)?[-a-z0-9]+\.\w/g.test(v),
+      validator: (v) => urlRegex.test(v),
       message: 'Некорректный URL',
     },
     default: 'https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png',

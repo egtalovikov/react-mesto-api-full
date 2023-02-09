@@ -29,6 +29,8 @@ const allowedCors = [
   'localhost:3000',
 ];
 
+const urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
+
 app.use(cookieParser());
 
 app.use(express.json());
@@ -82,7 +84,7 @@ app.post('/signin', celebrate({
 app.post('/signup', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
-    avatar: Joi.string().pattern(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/),
+    avatar: Joi.string().pattern(urlRegex),
     about: Joi.string().min(2).max(30),
     email: Joi.string().required().email(),
     password: Joi.string().required().min(8),
@@ -105,3 +107,5 @@ app.use(errors());
 app.use(handleErrors);
 
 app.listen(PORT);
+
+module.exports = urlRegex;
