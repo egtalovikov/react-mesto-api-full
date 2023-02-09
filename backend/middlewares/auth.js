@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const AuthError = require('../errors/auth-err');
 
-const { JWT_SECRET = 'dev-key' } = process.env;
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 const extractBearerToken = (header) => header.replace('Bearer ', '');
 
@@ -14,7 +14,7 @@ module.exports = (req, res, next) => {
     }
 
     const token = extractBearerToken(authorization);
-    const payload = jwt.verify(token, JWT_SECRET);
+    const payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
 
     req.user = payload;
   } catch (err) {

@@ -63,6 +63,7 @@ function App() {
       api
         .getInitialCards()
         .then((values) => {
+          values.reverse();
           setCards(values);
         })
         .catch((err) => {
@@ -73,8 +74,6 @@ function App() {
 
   function handleTokenCheck() {
     const jwt = localStorage.getItem("jwt");
-
-    console.log(jwt);
 
     if (jwt) {
       auth.checkToken(jwt).then((res) => {

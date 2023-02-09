@@ -6,7 +6,7 @@ const ValidationError = require('../errors/validation-err');
 const ConflictError = require('../errors/conflict-err');
 const AuthError = require('../errors/auth-err');
 
-const { JWT_SECRET = 'dev-key' } = process.env;
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 const getUsers = (req, res, next) => {
   User.find({})
@@ -122,7 +122,7 @@ const login = (req, res, next) => {
       if (!user) {
         throw new AuthError('Неправильная почта или пароль');
       }
-      const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
+      const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
       res.send({ token, name: user.name, email: user.email });
     })
     .catch(next);

@@ -17,7 +17,7 @@ class Api {
 
   loadUserInfo() {
     return this._request(`${this._baseUrl}/users/me`, {
-      headers: this._headers
+      headers: {...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}`}
     })
   }
 
@@ -25,12 +25,12 @@ class Api {
     if (state) {
       return this._request(`${this._baseUrl}/cards/${id}/likes`, {
         method: 'PUT',
-        headers: this._headers
+        headers: {...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}`}
       })
     } else {
       return this._request(`${this._baseUrl}/cards/${id}/likes`, {
         method: 'DELETE',
-        headers: this._headers
+        headers: {...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}`}
       })
     }
   }
@@ -38,20 +38,20 @@ class Api {
   deleteCard(idNumber) {
     return this._request(`${this._baseUrl}/cards/${idNumber}`, {
       method: 'DELETE',
-      headers: this._headers
+      headers: {...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}`}
     })
   }
 
   getInitialCards() {
     return this._request(`${this._baseUrl}/cards`, {
-      headers: this._headers
+      headers: {...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}`}
     })
   }
 
   addCard(inputValues) {
     return this._request(`${this._baseUrl}/cards`, {
       method: 'POST',
-      headers: this._headers,
+      headers: {...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}`},
       body: JSON.stringify({
         name: inputValues.name,
         link: inputValues.link
@@ -62,7 +62,7 @@ class Api {
   editProfile(inputValues) {
     return this._request(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}`},
       body: JSON.stringify({
         name: inputValues.name,
         about: inputValues.about
@@ -73,7 +73,7 @@ class Api {
   changeAvatar(inputValues) {
     return this._request(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}`},
       body: JSON.stringify({
         avatar: inputValues.avatar
       })
@@ -84,7 +84,6 @@ class Api {
 const api = new Api({
   baseUrl: 'https://api.mesto.egtalovikov.nomoredomainsclub.ru',
   headers: {
-    Authorization: `Bearer ${localStorage.getItem("jwt")}`,
     'Content-Type': 'application/json'
   }
 });
