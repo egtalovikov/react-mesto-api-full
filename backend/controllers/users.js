@@ -20,7 +20,13 @@ const getUserById = (req, res, next) => {
     .then((user) => {
       res.send(user);
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        next(new ValidationError('Передан невалидный ID'));
+        return;
+      }
+      next(err);
+    });
 };
 
 const createUser = (req, res, next) => {
