@@ -75,7 +75,7 @@ const updateProfile = (req, res, next) => {
     },
   )
     .then((user) => {
-      if (user === null) {
+      if (!user) {
         throw new NotFoundError('Пользователь не найден');
       }
       res.send(user);
@@ -101,7 +101,7 @@ const updateAvatar = (req, res, next) => {
     },
   )
     .then((user) => {
-      if (user === null) {
+      if (!user) {
         throw new NotFoundError('Пользователь не найден');
       }
       res.send(user);
@@ -117,11 +117,12 @@ const updateAvatar = (req, res, next) => {
 };
 
 const login = (req, res, next) => {
-  const { email } = req.body;
+  const { email, password } = req.body;
 
   return User.findOne({ email }).select('+password')
     .then((user) => {
-      if (!user) {
+      const passwordCheck = bcrypt.compare(password, user.password);
+      if (!user || !passwordCheck) {
         throw new AuthError('Неправильная почта или пароль');
       }
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
@@ -133,7 +134,7 @@ const login = (req, res, next) => {
 const getUserInfo = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
-      if (user === null) {
+      if (!user) {
         throw new NotFoundError('Пользователь не найден');
       }
       res.send(user);
