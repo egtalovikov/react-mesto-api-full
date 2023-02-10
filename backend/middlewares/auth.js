@@ -20,15 +20,7 @@ module.exports = (req, res, next) => {
     const token = extractBearerToken(authorization);
     const payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
 
-    User.findOne({ email }).select('+password')
-      .then((user) => {
-        if (!user) {
-          next();
-          return;
-        }
-        req.user = payload;
-      })
-      .catch(next);
+    req.user = payload;
   } catch (err) {
     next(new AuthError('Что-то пошло не так при авторизации'));
     return;
