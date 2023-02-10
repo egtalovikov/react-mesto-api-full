@@ -74,7 +74,12 @@ const updateProfile = (req, res, next) => {
       runValidators: true,
     },
   )
-    .then((user) => res.send(user))
+    .then((user) => {
+      if (user === null) {
+        throw new NotFoundError('Пользователь не найден');
+      }
+      res.send(user);
+    })
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new ValidationError('Переданы некорректные данные при обновлении профиля'));
@@ -95,7 +100,12 @@ const updateAvatar = (req, res, next) => {
       runValidators: true,
     },
   )
-    .then((user) => res.send(user))
+    .then((user) => {
+      if (user === null) {
+        throw new NotFoundError('Пользователь не найден');
+      }
+      res.send(user);
+    })
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new ValidationError('Переданы некорректные данные при обновлении аватара'));

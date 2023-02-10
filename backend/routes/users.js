@@ -3,7 +3,6 @@ const { celebrate, Joi } = require('celebrate');
 const {
   getUsers, getUserById, updateProfile, updateAvatar, getUserInfo,
 } = require('../controllers/users');
-const urlRegex = require('../app');
 
 router.get('/', getUsers);
 router.get('/me', getUserInfo);
@@ -15,7 +14,12 @@ router.patch('/me', celebrate({
 }), updateProfile);
 router.patch('/me/avatar', celebrate({
   body: Joi.object().keys({
-    avatar: Joi.string().required().pattern(urlRegex),
+    avatar: Joi.string().required().uri({
+      scheme: [
+        'http',
+        'https',
+      ],
+    }),
   }),
 }), updateAvatar);
 router.get('/:userId', celebrate({

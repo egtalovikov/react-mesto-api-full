@@ -1,11 +1,14 @@
 const jwt = require('jsonwebtoken');
 const AuthError = require('../errors/auth-err');
+const User = require('../models/user');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 const extractBearerToken = (header) => header.replace('Bearer ', '');
 
 module.exports = (req, res, next) => {
+  const { email } = req.body;
+
   try {
     const { authorization } = req.headers;
 
@@ -17,7 +20,15 @@ module.exports = (req, res, next) => {
     const token = extractBearerToken(authorization);
     const payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
 
-    req.user = payload;
+    User.findOne({ email }).select('+password')
+      .then((user) => {
+        if (!user) {
+          next();
+          return;
+        }
+        req.user = payload;
+      })
+      .catch(next);
   } catch (err) {
     next(new AuthError('Что-то пошло не так при авторизации'));
     return;
