@@ -1,6 +1,5 @@
 require('dotenv').config();
 const express = require('express');
-const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
@@ -30,8 +29,6 @@ const allowedCors = [
 ];
 
 const urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
-
-app.use(cookieParser());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
