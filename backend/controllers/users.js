@@ -132,7 +132,12 @@ const login = (req, res, next) => {
 
 const getUserInfo = (req, res, next) => {
   User.findById(req.user._id)
-    .then((user) => res.send(user))
+    .then((user) => {
+      if (user === null) {
+        throw new NotFoundError('Пользователь не найден');
+      }
+      res.send(user);
+    })
     .catch(next);
 };
 
