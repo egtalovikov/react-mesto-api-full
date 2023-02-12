@@ -5,9 +5,7 @@ const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const auth = require('./middlewares/auth');
 const handleErrors = require('./middlewares/errors');
-const NotFoundError = require('./errors/not-found-err');
 const { PORT = 3000 } = require('./config');
 
 const limiter = rateLimit({
@@ -71,16 +69,7 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.use('/', require('./routes/auth'));
-
-app.use(auth);
-
-app.use('/users', require('./routes/users'));
-app.use('/cards', require('./routes/cards'));
-
-app.use((req, res, next) => {
-  next(new NotFoundError('Указан неправильный путь'));
-});
+app.use('/', require('./routes/index'));
 
 app.use(errorLogger);
 
