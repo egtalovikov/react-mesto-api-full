@@ -1,8 +1,10 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const ValidationError = require('mongoose/lib/error/validation');
+const CastError = require('mongoose/lib/error/cast');
 const User = require('../models/user');
 const NotFoundError = require('../errors/not-found-err');
-const ValidationError = require('../errors/validation-err');
+const MyValidationError = require('../errors/my-validation-err');
 const ConflictError = require('../errors/conflict-err');
 const AuthError = require('../errors/auth-err');
 const { NODE_ENV, JWT_SECRET } = require('../config');
@@ -20,8 +22,8 @@ const getUserById = (req, res, next) => {
       res.send(user);
     })
     .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new ValidationError('Передан невалидный ID'));
+      if (err instanceof CastError) {
+        next(new MyValidationError('Передан невалидный ID'));
         return;
       }
       next(err);
@@ -50,11 +52,12 @@ const createUser = (req, res, next) => {
       res.send(user);
     })
     .catch((err) => {
-      if (err.name === 'ValidationError') {
-        next(new ValidationError('Переданы некорректные данные при создании пользователя'));
+      if (err instanceof ValidationError) {
+        next(new MyValidationError('Переданы некорректные данные при создании пользователя'));
         return;
       }
       if (err.code === 11000) {
+        console.log(err);
         next(new ConflictError('Пользователь с такой почтой уже зарегистрирован'));
         return;
       }
@@ -80,8 +83,8 @@ const updateProfile = (req, res, next) => {
       res.send(user);
     })
     .catch((err) => {
-      if (err.name === 'ValidationError') {
-        next(new ValidationError('Переданы некорректные данные при обновлении профиля'));
+      if (err.name === 'MyValidationError') {
+        next(new MyValidationError('Переданы некорректные данные при обновлении профиля'));
         return;
       }
       next(err);
@@ -106,8 +109,8 @@ const updateAvatar = (req, res, next) => {
       res.send(user);
     })
     .catch((err) => {
-      if (err.name === 'ValidationError') {
-        next(new ValidationError('Переданы некорректные данные при обновлении аватара'));
+      if (err.name === 'MyValidationError') {
+        next(new MyValidationError('Переданы некорректные данные при обновлении аватара'));
         return;
       }
 

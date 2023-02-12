@@ -1,6 +1,8 @@
+const ValidationError = require('mongoose/lib/error/validation');
+const CastError = require('mongoose/lib/error/cast');
 const Card = require('../models/card');
 const NotFoundError = require('../errors/not-found-err');
-const ValidationError = require('../errors/validation-err');
+const MyValidationError = require('../errors/my-validation-err');
 const ForbiddenError = require('../errors/forbidden-err');
 
 const getCards = (req, res, next) => {
@@ -16,8 +18,8 @@ const createCard = (req, res, next) => {
   Card.create({ name, link, owner: req.user._id })
     .then((card) => res.status(201).send(card))
     .catch((err) => {
-      if (err.name === 'ValidationError') {
-        next(new ValidationError('Переданы некорректные данные при создании карточки'));
+      if (err instanceof ValidationError) {
+        next(new MyValidationError('Переданы некорректные данные при создании карточки'));
         return;
       }
       next(err);
@@ -35,8 +37,8 @@ const deleteCard = (req, res, next) => {
       res.send(card);
     })
     .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new ValidationError('Карточка с  указанным _id не найдена'));
+      if (err instanceof CastError) {
+        next(new MyValidationError('Карточка с  указанным _id не найдена'));
         return;
       }
       next(err);
@@ -58,8 +60,8 @@ const likeCard = (req, res, next) => {
     .orFail(new NotFoundError('Передан несуществующий _id карточки'))
     .then((card) => res.send(card))
     .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new ValidationError('Передан несуществующий _id карточки'));
+      if (err instanceof CastError) {
+        next(new MyValidationError('Передан несуществующий _id карточки'));
         return;
       }
       next(err);
@@ -75,8 +77,8 @@ const dislikeCard = (req, res, next) => {
     .orFail(new NotFoundError('Передан несуществующий _id карточки'))
     .then((card) => res.send(card))
     .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new ValidationError('Передан несуществующий _id карточки'));
+      if (err instanceof CastError) {
+        next(new MyValidationError('Передан несуществующий _id карточки'));
         return;
       }
       next(err);
