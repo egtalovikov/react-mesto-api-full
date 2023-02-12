@@ -5,8 +5,7 @@ const NotFoundError = require('../errors/not-found-err');
 const ValidationError = require('../errors/validation-err');
 const ConflictError = require('../errors/conflict-err');
 const AuthError = require('../errors/auth-err');
-
-const { NODE_ENV, JWT_SECRET } = process.env;
+const { NODE_ENV, JWT_SECRET } = require('../config');
 
 const getUsers = (req, res, next) => {
   User.find({})
