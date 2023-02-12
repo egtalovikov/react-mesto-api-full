@@ -22,7 +22,7 @@ const cardSchema = new mongoose.Schema({
     ref: 'User',
   },
   likes: {
-    type: [mongoose.Schema.Types.ObjectId],
+    type: Array,
     default: [],
     ref: 'User',
   },
