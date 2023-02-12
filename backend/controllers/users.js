@@ -57,7 +57,6 @@ const createUser = (req, res, next) => {
         return;
       }
       if (err.code === 11000) {
-        console.log(err);
         next(new ConflictError('Пользователь с такой почтой уже зарегистрирован'));
         return;
       }
