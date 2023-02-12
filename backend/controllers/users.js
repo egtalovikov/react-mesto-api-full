@@ -82,7 +82,7 @@ const updateProfile = (req, res, next) => {
       res.send(user);
     })
     .catch((err) => {
-      if (err.name === 'MyValidationError') {
+      if (err.name instanceof ValidationError) {
         next(new MyValidationError('Переданы некорректные данные при обновлении профиля'));
         return;
       }
@@ -108,7 +108,7 @@ const updateAvatar = (req, res, next) => {
       res.send(user);
     })
     .catch((err) => {
-      if (err.name === 'MyValidationError') {
+      if (err instanceof ValidationError) {
         next(new MyValidationError('Переданы некорректные данные при обновлении аватара'));
         return;
       }
