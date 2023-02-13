@@ -34,6 +34,7 @@ const deleteCard = (req, res, next) => {
         throw new ForbiddenError('Вы не можете удалить карточку другого пользователя');
       }
       card.delete();
+      return card;
     })
     .then((card) => res.send(card))
     .catch((err) => {
