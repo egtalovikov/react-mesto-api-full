@@ -34,8 +34,8 @@ const deleteCard = (req, res, next) => {
         throw new ForbiddenError('Вы не можете удалить карточку другого пользователя');
       }
       card.delete();
-      res.send(card);
     })
+    .then((card) => res.send(card))
     .catch((err) => {
       if (err instanceof CastError) {
         next(new MyValidationError('Карточка с  указанным _id не найдена'));
